@@ -1,7 +1,7 @@
-import { Component , Injectable} from '@angular/core';
+import { Component , Injectable, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http'; 
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, catchError, map} from 'rxjs/operators';
+import * as cors from 'cors';
 
 @Component({
   selector: 'app-root',
@@ -9,23 +9,27 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
-  private apiUrl = 'http://localhost:8080/api';
 
-  responseFromMicroservice: string = '';
-  constructor(private http: HttpClient) {}
-
-
-  getHello(): Observable<string> {
-  return this.http.get<string>(`${this.apiUrl}/hello`).pipe(
-    tap((response: string) => {
-      this.responseFromMicroservice = response;
-    })
-  );
+export class AppComponent implements OnInit{
+  title: string = 'qmvet';
+    responseFromMicroservice: string = '';
+  
+    constructor(private http: HttpClient) {}
+  
+    ngOnInit(): void {
+      this.http.get<string>('http://localhost:8080/api/hello').pipe(
+        map((data: any) => data.message), // Extrae el valor de la propiedad 'message'v  
+        tap((message: string) => {
+          this.responseFromMicroservice = message;
+          }),
+          catchError((error: any) => {
+            console.error('Error en la solicitud HTTP:', error);
+            return [];
+          })
+      ).subscribe();
+    }
+  
 }
-}
-

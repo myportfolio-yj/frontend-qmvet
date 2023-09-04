@@ -3,17 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 
-import { ApiService } from './app.component';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    ApiService
+    AppComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule
   ],
   providers: [],
-  bootstrap: [ApiService]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
