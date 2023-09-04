@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component , Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http'; 
-
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -8,16 +9,23 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
-  title = 'qmvet';
 
-   constructor(private http: HttpClient) {
-    // Aquí puedes utilizar el servicio HttpClient para realizar solicitudes HTTP
-    this.http.get('http://localhost:8080/api/data').subscribe((data) => {
-      // Manejando los datos recibidos en la respuesta
-      console.log(data); // Imprimiendo los datos en la consola
-      // Aquí puedes realizar cualquier otra operación con los datos recibidosthis.http.get('http://localhost:8080/hello').subscribe((data) => {
-  // Aquí puedes manejar los datos recibidos en la respuesta
-    });
-  }
+@Injectable({
+  providedIn: 'root'
+})
+export class ApiService {
+  private apiUrl = 'http://localhost:8080/api';
+
+  responseFromMicroservice: string = '';
+  constructor(private http: HttpClient) {}
+
+
+  getHello(): Observable<string> {
+  return this.http.get<string>(`${this.apiUrl}/hello`).pipe(
+    tap((response: string) => {
+      this.responseFromMicroservice = response;
+    })
+  );
 }
+}
+
