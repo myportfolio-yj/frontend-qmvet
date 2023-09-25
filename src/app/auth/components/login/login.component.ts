@@ -6,15 +6,15 @@ import * as cors from 'cors';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class AppComponent implements OnInit{
+export class LoginComponent implements OnInit{
   title: string = 'qmvet';
     responseFromMicroservice: string = '';
   
