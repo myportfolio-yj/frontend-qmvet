@@ -6,7 +6,7 @@
 
   body {
     font-family: Arial, sans-serif;
-    background-color: #11A79C;
+    background-color: #0E424A;
   }
 
   .container {
@@ -56,7 +56,7 @@
 
   @media screen and (max-width: 480px) {
     .container {
-      max-width: 100%;
+      width: 95%;
       padding: 10px;
     }
   }
